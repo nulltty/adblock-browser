@@ -1,6 +1,6 @@
 // main.js — proses utama Electron: setup window, blokir ads/redirect/popup,
 // dan isolasi session.
-const { app, BrowserWindow, session, shell, ipcMain, Menu } = require('electron');
+const { app, BrowserWindow, session, shell, ipcMain, Menu, clipboard } = require('electron');
 const path = require('path');
 const CONFIG = require('./config');
 const blocklist = require('./blocklist');
@@ -87,6 +87,56 @@ function createWindow() {
       openInAppTab(url);
       return { action: 'deny' };
     });
+
+    // Menu konteks (klik kanan) di dalam halaman web
+    webContents.on('context-menu', (e, params) => {
+      const items = [];
+
+      // Klik kanan pada tautan → buka di tab baru
+      if (params.linkURL) {
+        items.push({
+          label: 'Buka Tautan di Tab Baru',
+          click: () => openInAppTab(params.linkURL)
+        });
+        items.push({
+          label: 'Salin Alamat Tautan',
+          click: () => clipboard.writeText(params.linkURL)
+        });
+        items.push({ type: 'separator' });
+      }
+
+      // Seleksi teks → salin
+      if (params.selectionText) {
+        items.push({ label: 'Salin', click: () => clipboard.writeText(params.selectionText) });
+      }
+
+      // Input editable → tempel
+      if (params.isEditable) {
+        items.push({ label: 'Tempel', click: () => webContents.paste() });
+        items.push({ type: 'separator' });
+      }
+
+      items.push({ label: 'Mundur', enabled: webContents.canGoBack(), click: () => webContents.goBack() });
+      items.push({ label: 'Maju', enabled: webContents.canGoForward(), click: () => webContents.goForward() });
+      items.push({ label: 'Muat Ulang', click: () => webContents.reload() });
+
+      Menu.buildFromTemplate(items).popup({ window: mainWindow });
+    });
+  });
+
+  // Menu konteks untuk UI sendiri (omnibox: tempel/salin)
+  mainWindow.webContents.on('context-menu', (e, params) => {
+    const items = [];
+    if (params.isEditable) {
+      items.push({ label: 'Tempel', click: () => mainWindow.webContents.paste() });
+      items.push({ label: 'Salin', click: () => mainWindow.webContents.copy() });
+      items.push({ label: 'Potong', click: () => mainWindow.webContents.cut() });
+      items.push({ type: 'separator' });
+      items.push({ label: 'Pilih Semua', click: () => mainWindow.webContents.selectAll() });
+    } else if (params.selectionText) {
+      items.push({ label: 'Salin', click: () => clipboard.writeText(params.selectionText) });
+    }
+    if (items.length) Menu.buildFromTemplate(items).popup({ window: mainWindow });
   });
 
   // Tautan luar (target=_blank dari UI, kalau ada) tetap di tab dalam aplikasi
