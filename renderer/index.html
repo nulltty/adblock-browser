@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Adblock Browser</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Tab strip -->
+  <div class="tabstrip" id="tabstrip">
+    <button class="newtab-btn" id="newtabBtn" title="Tab baru">+</button>
+  </div>
+
+  <!-- Toolbar: navigasi + omnibox -->
+  <div class="toolbar">
+    <button class="nav-btn" id="backBtn" title="Mundur">←</button>
+    <button class="nav-btn" id="forwardBtn" title="Maju">→</button>
+    <button class="nav-btn" id="reloadBtn" title="Muat ulang">⟳</button>
+    <button class="nav-btn" id="homeBtn" title="Beranda">⌂</button>
+    <input id="omnibox" class="omnibox" type="text" spellcheck="false"
+           placeholder="Cari atau ketik URL…" autocomplete="off" />
+    <button class="nav-btn" id="pauseBtn" title="Jeda/lanjutkan blokir ads">⏸</button>
+    <button class="nav-btn" id="updateBtn" title="Perbarui daftar blokir">↻</button>
+  </div>
+
+  <!-- Area konten (webview per tab) -->
+  <div class="content" id="content"></div>
+
+  <!-- Status bar -->
+  <div class="statusbar">
+    <span id="status">Siap…</span>
+    <span class="spacer"></span>
+    <span id="blockedInfo">List: …</span>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "name": "adblock-browser",
+  "version": "1.0.0",
+  "description": "Electron browser yang memblokir ads, popup, dan redirect (isolasi spam)",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "update-lists": "node blocklist-updater.js",
+    "smoke": "electron test-blocking.js",
+    "icon": "python3 scripts/make-icon.py",
+    "dist": "electron-builder --mac"
+  },
+  "author": "Hakki",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^45.3.0",
+    "electron-builder": "latest"
+  },
+  "build": {
+    "appId": "com.hakki.adblockbrowser",
+    "productName": "Adblock Browser",
+    "asar": false,
+    "directories": {
+      "buildResources": "build",
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "webview-preload.js",
+      "config.js",
+      "blocklist.js",
+      "renderer/**/*",
+      "pages/**/*",
+      "blocklist/*.list",
+      "blocklist/*.txt",
+      "blocklist/.last-update",
+      "package.json"
+    ],
+    "mac": {
+      "icon": "build/icon.icns",
+      "target": ["dmg", "zip"],
+      "category": "public.app-category.utilities",
+      "identity": null
+    }
+  }
+}

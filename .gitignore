@@ -1,0 +1,17 @@
+# dependencies
+node_modules/
+
+# build output
+dist/
+
+# electron-builder intermediate (icon.png & icon.icns tetap dicommit)
+build/icon.iconset/
+
+# blocklist yang diunduh otomatis (cache — regenerate via update-lists)
+blocklist/easylist.list
+blocklist/easyprivacy.list
+blocklist/.last-update
+
+# log & macOS
+*.log
+.DS_Store

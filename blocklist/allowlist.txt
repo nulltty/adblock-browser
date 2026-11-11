@@ -1,0 +1,16 @@
+! ============================================================
+!  Allowlist — domain yang SELALU diizinkan (tidak pernah diblokir)
+!  Satu domain per baris. Prefiks "!" = komentar.
+!  Blokir subdomain iklan/tracker tetap berlaku untuk domain lain.
+! ============================================================
+
+! --- CDN / video player yang sering ikut terblokir oleh list ads ---
+! JW Player (dipakai banyak situs video: vidara, dll)
+jwpcdn.com
+jwplayer.com
+cdn.jwplayer.com
+
+! --- CDN umum (kalau ada list yang over-block) ---
+! cdnjs.cloudflare.com sebenarnya sudah aman dengan parser path-aware;
+! baris di bawah opsional, biarkan kalau perlu:
+! cloudflare.com

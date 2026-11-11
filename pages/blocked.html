@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diblokir</title>
+  <style>
+    :root { --bg:#0f0f0f; --panel:#1a1a1a; --accent:#e85d04; --text:#e0e0e0; --muted:#8a8a8a; --border:#333; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; background:var(--bg); color:var(--text);
+      font-family:-apple-system,"Segoe UI",system-ui,sans-serif; }
+    .wrap { display:flex; flex-direction:column; align-items:center; justify-content:center;
+      height:100%; gap:1.2rem; padding:1.5rem; text-align:center; }
+    .icon { font-size:4rem; color:var(--accent); }
+    h1 { margin:0; font-size:1.6rem; }
+    .reason { color:var(--text); }
+    .url { color:var(--muted); font-family:monospace; font-size:.8rem; word-break:break-all;
+      background:var(--panel); padding:.5rem .8rem; border-radius:6px; max-width:700px; }
+    .actions { display:flex; gap:.6rem; }
+    button {
+      background:var(--panel); color:var(--text); border:1px solid var(--border);
+      padding:.5rem 1rem; border-radius:8px; cursor:pointer; font-size:.9rem;
+    }
+    button:hover { border-color:var(--accent); }
+    .note { color:var(--muted); font-size:.8rem; max-width:600px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="icon">⛔</div>
+    <h1>Sayuran ini diblokir</h1>
+    <p class="reason">Alasan: <b id="reason">domain terblokir</b></p>
+    <div class="url" id="url"></div>
+    <div class="actions">
+      <button id="back">← Kembali</button>
+      <button id="home">Beranda</button>
+    </div>
+    <p class="note">
+      Adblock Browser memblokir domain yang tercantum di daftar iklan/tracker. Kalau ini
+      salah blokir, pakai tombol ⏸ di toolbar untuk menyetop blokir sementara, lalu muat ulang.
+    </p>
+  </div>
+  <script>
+    const p = new URLSearchParams(location.search);
+    document.getElementById('reason').textContent = p.get('reason') || 'domain terblokir';
+    const urlEl = document.getElementById('url');
+    urlEl.textContent = p.get('url') || '(tidak diketahui)';
+    document.getElementById('back').onclick = () => history.length > 1 ? history.back() : (location.href = 'about:blank');
+    // "Beranda" navigasi ke beranda melalui omnibox (main process tidak tahu path lokal),
+    // jadi minta tab utama membuka beranda lewat reload ke about:blank lalu user tekan ⌂.
+    document.getElementById('home').onclick = () => history.back();
+  </script>
+</body>
+</html>

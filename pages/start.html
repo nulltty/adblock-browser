@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Beranda — Adblock Browser</title>
+  <style>
+    :root { --bg:#0f0f0f; --panel:#1a1a1a; --accent:#e85d04; --text:#e0e0e0; --muted:#8a8a8a; --border:#333; }
+    * { box-sizing: border-box; }
+    html, body { margin:0; height:100%; background:var(--bg); color:var(--text);
+      font-family:-apple-system,"Segoe UI",system-ui,sans-serif; }
+    .wrap { display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; gap:1.5rem; padding:1rem; }
+    h1 { font-size:2rem; letter-spacing:1px; margin:0; color:var(--text); }
+    h1 .dot { color:var(--accent); }
+    .search { width:min(620px, 90%); }
+    input#q {
+      width:100%; height:46px; padding:0 18px; font-size:16px;
+      background:var(--panel); color:var(--text);
+      border:1px solid var(--border); border-radius:23px; outline:none;
+    }
+    input#q:focus { border-color:var(--accent); }
+    button.go {
+      margin-top:.6rem; width:100%; height:42px; font-size:15px;
+      background:var(--accent); color:#fff; border:none; border-radius:10px; cursor:pointer;
+    }
+    button.go:hover { filter:brightness(1.1); }
+    .quick { display:flex; gap:.6rem; flex-wrap:wrap; justify-content:center; }
+    .quick a {
+      text-decoration:none; color:var(--muted); font-size:.85rem;
+      border:1px solid var(--border); padding:.4rem .8rem; border-radius:8px;
+    }
+    .quick a:hover { color:var(--text); border-color:var(--accent); }
+    .note { color:var(--muted); font-size:.8rem; max-width:620px; text-align:center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Adblock<span class="dot">·</span>Browser</h1>
+    <form class="search" id="form">
+      <input id="q" type="text" placeholder="Cari di DuckDuckGo…" autocomplete="off" autofocus />
+      <button class="go" type="submit">Cari</button>
+    </form>
+    <div class="quick">
+      <a href="https://duckduckgo.com" target="_blank">DuckDuckGo</a>
+      <a href="https://github.com" target="_blank">GitHub</a>
+      <a href="https://wikipedia.org" target="_blank">Wikipedia</a>
+      <a href="https://semprot.com" target="_blank">Semprot</a>
+    </div>
+    <p class="note">
+      Iklan, tracker, dan popup otomatis diblokir secara default. Tautan cepat di atas
+      membuka tab baru (inisiasi user). Untuk blokir sementara, pakai tombol ⏸ di toolbar.
+    </p>
+  </div>
+  <script>
+    const ENGINE = 'https://duckduckgo.com/?q=';
+    document.getElementById('form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = document.getElementById('q').value.trim();
+      if (q) location.href = ENGINE + encodeURIComponent(q);
+    });
+  </script>
+</body>
+</html>
