@@ -10,6 +10,12 @@ jwpcdn.com
 jwplayer.com
 cdn.jwplayer.com
 
+! --- Shortlink & sosial (redirect/URL shortener, bukan iklan) ---
+! t.co = shortlink Twitter/X; tanpa ini semua tautan Twitter mati.
+t.co
+twitter.com
+x.com
+
 ! --- CDN umum (kalau ada list yang over-block) ---
 ! cdnjs.cloudflare.com sebenarnya sudah aman dengan parser path-aware;
 ! baris di bawah opsional, biarkan kalau perlu:

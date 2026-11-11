@@ -101,22 +101,15 @@
 ||analytics.tiktok.com^
 ||analytics.twitter.com^
 ||syndication.twitter.com^
-||t.co^
 ||platform.twitter.com^
 ||ads-twitter.com^
 ||ads.yandex.ru^
-||yandex.ru^
-||yastatic.net^
 ||ad.mail.ru^
 ||adswizz^
 ||adnxs^
 ||amazon-adsystem^
 ||app-measurement.com^
 ||measurement.api^
-||firebaseio.com^
-||gstatic.com^
-||ssl.gstatic.com^
-||fonts.gstatic.com^
 
 ! --- Common popup / redirect / spam hosts ---
 ||adservice.google.com^
